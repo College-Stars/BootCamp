@@ -1,0 +1,20 @@
+{
+  "name": "bootcamp_backend",
+  "version": "1.0.0",
+  "description": "This is Bootcamp Backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "NODE_ENV=Production node app.js", 
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Abhishek Choudhary",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
