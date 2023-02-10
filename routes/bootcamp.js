@@ -29,10 +29,9 @@ module.exports = bootcampRouter;
 
 
 
-// // create a new bootcamp
-// bootcampRouter.post('/', (req, res) => {
-//     res.status(200).json({success: true, msg: 'Create a new bootcamp'});
-// })
+// create a new bootcamp
+// bootcampRouter.post('/', createBootcamp) 
+
 
 // // get all bootcamps 
 // bootcampRouter.get('/', (req, res) => {

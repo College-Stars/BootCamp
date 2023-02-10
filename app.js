@@ -1,23 +1,50 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+require("./models/sample")
+const sampleRouter = require('./routes/sample');
 const dotenv = require('dotenv');
 const bootcampRouter = require('./routes/bootcamp');
-let port;
-
+// const logger = require('./middlewears/logger');
+const morgan = require('morgan');
 dotenv.config({path: "./config/.env"}); // Load .env file => you can access anything from .env file using process.env
+let port = process.env.PORT1 || 6000;
 
-if(process.env.NODE_ENV === "development") {
- port = process.env.PORT1 || 6000;
-}
-else {
- port = process.env.PORT2 || 7000;
-}
+let mongourl = process.env.MONGO_URL || "mongodb://localhost:27017/bootcamp";
+
+// connect mongodb:
+mongoose.connect(mongourl) 
+
+// true case - established
+mongoose.connection.on("connected" , ()=>{console.log("connected to mongo")})
+
+
+// false case - not established
+mongoose.connection.on("error" , (err)=>{console.log("error connecting to mongo", err)})
+
+
+
+
 
 
 app.use(express.json()); // to parse json data
+if( process.env.NODE_ENV == 'development') {
+  app.use(morgan("dev")); // to use logger middleware
+}
+else if( process.env.NODE_ENV == 'production') {
+  app.use(morgan("combined")); // to use logger middleware
+}
+
 app.use('/api/v1/bootcamp/', bootcampRouter)
+app.use('/sample/', sampleRouter)
+
+
+
+
 
 
 app.listen(port, () => {
   console.log(`Bootcamp app listening at http://localhost:${port} in ${process.env.NODE_ENV} mode`)
 })
+
+
