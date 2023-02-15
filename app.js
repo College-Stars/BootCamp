@@ -6,6 +6,7 @@ const sampleRouter = require('./routes/sample');
 const dotenv = require('dotenv');
 const bootcampRouter = require('./routes/bootcamp');
 // const logger = require('./middlewears/logger');
+const colors = require('colors');
 const morgan = require('morgan');
 dotenv.config({path: "./config/.env"}); // Load .env file => you can access anything from .env file using process.env
 let port = process.env.PORT1 || 6000;
@@ -13,10 +14,10 @@ let port = process.env.PORT1 || 6000;
 let mongourl = process.env.MONGO_URL || "mongodb://localhost:27017/bootcamp";
 
 // connect mongodb:
-mongoose.connect(mongourl) 
+mongoose.connect(mongourl, {useNewUrlParser: true, useUnifiedTopology: true}) 
 
 // true case - established
-mongoose.connection.on("connected" , ()=>{console.log("connected to mongo")})
+mongoose.connection.on("connected" , ()=>{console.log("connected to mongo".bgMagenta)})
 
 
 // false case - not established
@@ -44,7 +45,7 @@ app.use('/sample/', sampleRouter)
 
 
 app.listen(port, () => {
-  console.log(`Bootcamp app listening at http://localhost:${port} in ${process.env.NODE_ENV} mode`)
+  console.log(`Bootcamp app listening at http://localhost:${port} in ${process.env.NODE_ENV} mode`.blue.bold)
 })
 
 
