@@ -1,17 +1,24 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require("./models/sample")
-const sampleRouter = require('./routes/sample');
-const dotenv = require('dotenv');
+
+// all models 
+  require('./models/Bootcamp');
+
+
+// all routes
 const bootcampRouter = require('./routes/bootcamp');
+
+
+
+const dotenv = require('dotenv');
 // const logger = require('./middlewears/logger');
 const colors = require('colors');
 const morgan = require('morgan');
 dotenv.config({path: "./config/.env"}); // Load .env file => you can access anything from .env file using process.env
 let port = process.env.PORT1 || 6000;
 
-let mongourl = process.env.MONGO_URL || "mongodb://localhost:27017/bootcamp";
+let mongourl = process.env.MONGO_URL || "mongodb://localhost:27017/practicum";
 
 // connect mongodb:
 mongoose.connect(mongourl, {useNewUrlParser: true, useUnifiedTopology: true}) 
@@ -37,7 +44,7 @@ else if( process.env.NODE_ENV == 'production') {
 }
 
 app.use('/api/v1/bootcamp/', bootcampRouter)
-app.use('/sample/', sampleRouter)
+
 
 
 
